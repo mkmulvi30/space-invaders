@@ -16,6 +16,7 @@ input.onButtonPressed(Button.AB, function () {
 input.onButtonPressed(Button.B, function () {
     player.move(-1)
 })
+let Score = 0
 let Enemy: game.LedSprite = null
 let shoot: game.LedSprite = null
 let player: game.LedSprite = null
@@ -30,12 +31,18 @@ basic.forever(function () {
     }
     basic.pause(10)
     Enemy.delete()
-    Lives += -1
+    Score += 1
+})
+basic.forever(function () {
     if (Enemy.isTouching(player)) {
-        player.delete()
-        player = game.createSprite(2, 4)
         Lives += -1
-    } else if (Lives == 0) {
+        player.delete()
+        basic.pause(500)
+        player = game.createSprite(2, 4)
+    }
+})
+basic.forever(function () {
+    if (Lives == 0) {
         game.gameOver()
     }
 })
